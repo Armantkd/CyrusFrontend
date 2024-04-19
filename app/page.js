@@ -13,9 +13,14 @@ export default function Home() {
     </div>
     <div className="bg-black w-full">
       <div className="w-10/12 mx-auto">
-      <AboutSection />
+        <AboutSection/>
+      </div>    
     </div>
-      
+
+    <div className="bg-blue-950 w-full">
+      <div className="w-10/12 mx-auto">
+        <AboutSection flipped = {true} />
+      </div>    
     </div>
     
     <Footer />
