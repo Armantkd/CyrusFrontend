@@ -13,11 +13,11 @@ const navLinks = [
   },
   {
     title: "Contact",
-    path: "projects",
+    path: "contact",
   },
   {
     title: "Login",
-    path: "contact",
+    path: "login",
   },
 ];
 
@@ -26,8 +26,8 @@ const Navbar = () => {
 
   return (
     /* Navbar but make logo more to the left than the page links */
-    <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-10 bg-[#800020] bg-opacity-100">
-      <div className="w-10/12 flex flex-wrap items-center justify-between mx-auto py-2" >
+    <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-10 bg-slate-900 bg-opacity-100">
+      <div className="max-w-128 w-10/12 flex flex-wrap items-center justify-between mx-auto py-2" >
      
         <Link
           href={"/"}

@@ -1,6 +1,10 @@
 
 //import React, { useTransition, useState } from "react";
+'use client'
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { useInView } from 'react-intersection-observer';
 //import TabButton from "./TabButton";
 
 const TAB_DATA = [
@@ -50,12 +54,30 @@ const AboutSection = ({flipped = false}) => {
       setTab(id);
     });
   };*/
+  // useInView options
+
+  const ref = useRef(null);
+  const { ref: inViewRef, inView } = useInView({
+    triggerOnce: true, // Only trigger the animation once
+    threshold: 0.3, // Trigger when 10% of the element is in view
+  });
+
+  // Merge the refs together, if you need to use both
+  function setRefs(node) {
+    ref.current = node;
+    inViewRef(node);
+  }
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   const getContent = () => {
     
     if (!flipped) {
       return (
       <>
-      <Image src="/images/about-image.jpg" width={500} height={500} />
+      <Image src="/images/about-image.jpg" width={600} height={500} />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
           <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
           <p className="text-base lg:text-lg">
@@ -73,7 +95,7 @@ const AboutSection = ({flipped = false}) => {
       return (
         <>
        
-          <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
+          <div className="mb-4 md:mt-0 text-left flex flex-col h-full">
             <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
             <p className="text-base lg:text-lg">
               I am a full stack web developer with a passion for creating
@@ -84,14 +106,22 @@ const AboutSection = ({flipped = false}) => {
               I am excited to work with others to create amazing applications.
             </p> 
             </div>
-            <Image src="/images/about-image.jpg" width={500} height={500} />
+            <Image src="/images/about-image.jpg" width={600} height={500} />
             </>
             );
     }
   };
 
   return (
-    <section className="text-white" id="about">
+    <motion.section 
+    ref={setRefs} // Set the merged refs here
+    className="text-white" 
+    id="about"
+    initial="hidden"       // Initial animation state
+    animate={inView ? "visible" : "hidden"}  // Control animation states based on in-view status
+    variants={variants}    // Use the defined variants
+    transition={{ duration: 0.8 }} // Define the animation transition
+  >
       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
           {getContent()}
           {/*
@@ -124,7 +154,7 @@ const AboutSection = ({flipped = false}) => {
   */}
        
       </div>
-    </section>
+    </motion.section>
   );
 };
 
