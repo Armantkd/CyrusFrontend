@@ -19,8 +19,8 @@ export const IconBxCustomize = () => (
         y2="25.4561"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#F9FAFB" />
-        <stop offset="1" stop-color="#F9FAFB" stop-opacity="0" />
+        <stop stopColor="#F9FAFB" />
+        <stop offset="1" stopColor="#F9FAFB" stopOpacity="0" />
       </linearGradient>
     </defs>
   </svg>

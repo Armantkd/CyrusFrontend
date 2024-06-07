@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavLink from "./NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
 import Image from "next/image";
+import { useSession, SessionProvider } from 'next-auth/react';
+import { signOut } from "next-auth/react"
 
 const navLinks = [
   {
@@ -15,14 +17,61 @@ const navLinks = [
     title: "Contact",
     path: "contact",
   },
-  {
-    title: "Login",
-    path: "login",
-  },
 ];
 
 const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setNavbarOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const renderNavLinks = () => {
+    
+    if (!session) {
+      return (
+        <li>
+          <NavLink href="login" title="Login" />
+        </li>
+      );
+    } else {
+      return (
+        <>
+         <li className="relative group">
+          <span className="block py-2 pl-3 pr-4 text-[#ADB7BE] sm:text-xl rounded md:p-0 hover:text-white cursor-pointer">
+            Hi, {session.user?.name}
+          </span>
+          <ul className="absolute hidden group-hover:block bg-slate-900 p-2 rounded shadow-lg">
+            <li>
+              <Link href="dashboard" className="block w-full text-left py-2 pl-3 pr-4 text-[#ADB7BE] hover:bg-slate-700 hover:text-white">
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={() => signOut()}
+                className="block w-full text-left py-2 pl-3 pr-4 text-[#ADB7BE] hover:bg-slate-700 hover:text-white"
+              >
+                Sign Out
+              </button>
+            </li>
+          </ul>
+        </li>
+        </>
+      );
+    }
+  };
 
   return (
     /* Navbar but make logo more to the left than the page links */
@@ -66,11 +115,13 @@ const Navbar = () => {
                 <NavLink href={link.path} title={link.title} />
               </li>
             ))}
-          </ul>
+           {renderNavLinks()}         
+            </ul>
         </div>
       </div>
-      {navbarOpen ? <MenuOverlay links={navLinks} /> : null}
+      {navbarOpen ? <MenuOverlay links={navLinks.concat(session ? [{ title: 'Dashboard', path: 'dashboard' }] : [{ title: 'Login', path: 'login' }])} /> : null}
     </nav>
+   
   );
 };
 

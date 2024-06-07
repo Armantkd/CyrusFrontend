@@ -58,9 +58,9 @@ export default function FeaturesSection() {
     initial="hidden"
     animate={inView ? "visible" : "hidden"}  // Control animation states based on in-view status
     transition={{ duration: 0.8 }}
-   className=" md:my-32 pt-24 relative">
+   className=" my-16 md:my-32 relative">
       <div        className="max-w-xl mx-auto space-y-4 text-center">
-        <h2 className="text-4xl heading">Turn your ideas into reality</h2>
+        <h2 className="text-4xl heading font-bold text-white">Turn your ideas into reality</h2>
         <p className="text-zinc-400">
           Float UI offers all the vital building blocks you need to transform
           your idea into a great-looking startup.

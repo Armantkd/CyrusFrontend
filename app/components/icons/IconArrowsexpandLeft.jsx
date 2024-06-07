@@ -23,8 +23,8 @@ export const IconArrowsexpandLeft = () => (
         y2="13.474"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#F9FAFB" />
-        <stop offset="1" stop-color="#F9FAFB" stop-opacity="0" />
+        <stop stopColor="#F9FAFB" />
+        <stop offset="1" stopColor="#F9FAFB" stopOpacity="0" />
       </linearGradient>
       <linearGradient
         id="paint1_linear_3267_7865"
@@ -34,8 +34,8 @@ export const IconArrowsexpandLeft = () => (
         y2="22.3129"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#F9FAFB" />
-        <stop offset="1" stop-color="#F9FAFB" stop-opacity="0" />
+        <stop stopColor="#F9FAFB" />
+        <stop offset="1" stopColor="#F9FAFB" stopOpacity="0" />
       </linearGradient>
     </defs>
   </svg>
